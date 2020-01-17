@@ -6,6 +6,7 @@ from .choices import LanguageChoice
 import time
 from .utils import write_content, Execution
 
+#Test
 
 def student_login(request):
     has_error = request.GET.get('error', None)
@@ -13,15 +14,15 @@ def student_login(request):
 
 
 def student_register(request):
-    
     return render(request, 'student_register.html')
+
 
 def on_register(request):
     register = Student(
-        name= request.POST['username'],
-        password= request.POST['password'],
-        email= request.POST['email'],
-        bio= request.POST['bio'],
+        name=request.POST['username'],
+        password=request.POST['password'],
+        email=request.POST['email'],
+        bio=request.POST['bio'],
     )
 
     register.save()
@@ -41,6 +42,7 @@ def check_login(request):
         return redirect('/student/problems')
     except ObjectDoesNotExist as e:
         return redirect('/student?error=true')
+
 
 # Create your views here.
 
@@ -113,9 +115,11 @@ def run_list(request):
     runs = Run.objects.all()
     return render(request, 'run_list.html', {'runs': runs})
 
+
 def logout(request):
     request.session.flush()
     return redirect('/student/')
+
 
 """
 
