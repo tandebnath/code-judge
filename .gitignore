@@ -1,0 +1,4 @@
+*.pyc
+cj-env
+.vscode
+code/*
