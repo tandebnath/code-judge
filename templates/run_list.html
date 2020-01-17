@@ -1,0 +1,30 @@
+<html>
+<head>
+
+    <title>CODE JUDGE</title>
+
+</head>
+<body>
+
+Logged in : {{ name }}
+
+<h2>Runs:-</h2>
+
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 50%;">Title</td>
+        <td style="width: 50%;">Actions</td>
+        <td style="width: 50%;">Status</td>
+
+    </tr>
+    {% for run in runs %}
+        <tr>
+            <td>{{ run.problem}}</td>
+            <td>{{ run.language }}</td>
+            <td>{{ run.status }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+
+</html>

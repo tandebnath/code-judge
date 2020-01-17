@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem</title>
+    <style>
+        br {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<p class="ptitle">
+<h2>Problem Title:</h2>
+{{ problem.title }}
+</p>
+
+<p class="pdesc">
+<h2>Problem Description</h2>
+{{ problem.description }}
+</p>
+<br>
+<form method="post" action="/student/problems/{{ problem.id }}/solve">
+    {% csrf_token %}
+    <select id="languageChoice" name="language">
+        {% for lang in languages %}
+            <option value="{{ lang.key }}">{{ lang.verbose }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <pre id="editor"></pre>
+    <input type="hidden" name="code" id="code">
+    <br>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.7/ace.js"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/github");
+    editor.session.setMode("ace/mode/java");
+    editor.setOptions({
+        maxLines: editor.session.getLength() + 10
+    });
+
+
+    editor.getSession().on('change', function (e) {
+        editor.setOptions({
+            maxLines: editor.session.getLength() + 10
+        });
+        $("#code").val(editor.getValue());
+    });
+
+    $("#languageChoice").change(function (e) {
+        editor.setValue('');
+        editor.session.setMode('ace/mode/' + $(this).val())
+    });
+</script>
+</body>
+</html>

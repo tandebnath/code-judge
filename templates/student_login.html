@@ -1,0 +1,59 @@
+<html>
+<head>
+
+    <title>CODE JUDGE</title>
+    <style> 
+    .container{
+        width:500px;
+        clear:both;
+        text-align: left;
+    } 
+    .container input  {
+    
+        clear:both;
+    }
+    .container label{
+        width:50%
+    }
+    body {
+        border: 2px solid black;
+        outline: #4CAF50 solid 10px;
+        margin: auto;  
+    padding: 20px;
+  
+    }      
+    
+    </style>
+
+    {% if error %}
+    <script>
+    alert('Invalid Credentials');
+    </script>
+    {% endif %}
+
+</head>
+<body>
+<h1><u>Welcome to Code Judge</u></h1>
+
+Please sign in to continue-
+
+<div class="container">
+<form action="/student/check_login" method="POST">
+ {% csrf_token %}
+<label>Username:</label>&nbsp<input type="text" name='username' placeholder="Enter your username" required></input>
+<br><br>
+<label>Password:</label>&nbsp<input type="password" name="password" placeholder="enter your password here"></input>
+<br><br>
+<button type="submit">Login</button>
+</form>
+</div>
+
+<br><br>
+
+
+<br><br>
+If you don't have an account, register <a href="/student/register">here</a>
+
+</body>
+
+</html>

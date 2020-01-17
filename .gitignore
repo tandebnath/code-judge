@@ -2,3 +2,5 @@
 cj-env
 .vscode
 code/*
+.idea
+venv

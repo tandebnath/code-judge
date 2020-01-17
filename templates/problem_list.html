@@ -1,0 +1,45 @@
+<html>
+<head>
+
+    <title>CODE JUDGE</title>
+    <style>
+    .loggingOut{
+        float:right;
+        position:relative;
+    }
+    </style>
+
+</head>
+<body>
+
+{% if student.logged_in %}
+
+Logged in : {{ student.student_name }}
+<a href="/student/logout" class="loggingOut">Logout</a>
+
+{% else %}
+
+Logged out (<a href="/student">Login</a>)
+
+{% endif %}
+
+<h2>List of Problems -</h2>
+
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 50%;">Title</td>
+        <td style="width: 50%;">Actions</td>
+    </tr>
+    {% for problem in problems %}
+        <tr>
+            <td>{{ problem.title }}</td>
+            <td>
+                <a href="/student/problems/{{ problem.id }}" class="Viewing" >View</a>
+                <button class="Solving">Solve</button>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+
+</html>

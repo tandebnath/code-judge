@@ -1,0 +1,28 @@
+<html>
+<head>
+
+    <title>CODE JUDGE</title>
+
+</head>
+<body>
+<h1><u>Welcome to Code Judge</u></h1>
+
+Please fill in your details:-
+
+<br><br>
+<form action="/student/on_register" method="POST">
+ {% csrf_token %}
+<label>Name:</label>&nbsp<input type="text" name="username" placeholder="Enter your name" required>
+<br><br>
+<label>Email ID:</label>&nbsp<input type="email" name="email" placeholder="Enter your email" required>
+<br><br>
+<label>Password:</label>&nbsp<input type="password" name="password" placeholder="Enter a password" required>
+<br><br>
+<label>A short bio:</label>&nbsp<input type="text" name='bio' placeholder="Write something about yourself">
+<br><br>
+<button type="submit">Register</button>
+</form>
+
+</body>
+
+</html>
