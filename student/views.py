@@ -5,8 +5,10 @@ from .models import Problem, Run, Student
 from .choices import LanguageChoice
 import time
 from .utils import write_content, Execution
+from .decorators import is_login
 
-#Test
+# Test
+
 
 def student_login(request):
     has_error = request.GET.get('error', None)
@@ -46,7 +48,7 @@ def check_login(request):
 
 # Create your views here.
 
-
+@is_login
 def problem_list(request):
     problems = Problem.objects.all()
     student = None
@@ -56,6 +58,7 @@ def problem_list(request):
     return render(request, 'problem_list.html', {'problems': problems, 'student': student})
 
 
+@is_login
 def problem_single(request, problem_id):
     try:
         problem = Problem.objects.filter(id=problem_id).get()
@@ -65,6 +68,7 @@ def problem_single(request, problem_id):
     return render(request, 'problem_single.html', {'problem': problem, 'languages': lang})
 
 
+@is_login
 def problem_solve(request, problem_id):
     language = request.POST['language']
     code = request.POST['code']
@@ -111,6 +115,7 @@ def problem_solve(request, problem_id):
     return redirect('/student/problems/runs')
 
 
+@is_login
 def run_list(request):
     runs = Run.objects.all()
     return render(request, 'run_list.html', {'runs': runs})
@@ -153,4 +158,41 @@ add(5, 10)
 
 for i in range(int(input())):
     print("Odd" if int(input())%2 else "Even")
+"""
+
+"""
+Java
+import java.util.Scanner;
+class Solution {
+    public static void main(String[] args) {
+        int num, i;
+        Scanner reader = new Scanner(System.in);
+        int n = reader.nextInt();
+        for(i=0;i<n;i++)
+        {
+        num = reader.nextInt();
+        if(num % 2 == 0)
+            System.out.println("Even");
+        else
+            System.out.println("Odd");
+        }
+    }
+}
+
+c++//
+#include <iostream>
+using namespace std;
+int main()
+{
+    int i, n, a;
+    cin>>n;
+    for(i=0;i<n;i++)
+    {
+        cin>>a;
+        if(a%2==0)
+            cout<<"Even"<<endl;
+        else
+            cout<<"Odd"<<endl;
+    }
+}
 """
