@@ -11,6 +11,13 @@
 </head>
 <body>
 
+{% if student.logged_in %}
+
+Logged in : {{ student.student_name }}
+<a href="/student/logout" class="loggingOut">Logout</a>
+
+{% endif %}
+
 <p class="ptitle">
 <h2>Problem Title:</h2>
 {{ problem.title }}

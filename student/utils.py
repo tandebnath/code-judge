@@ -29,8 +29,67 @@ def execute_python(python_file, input_file_location) -> Execution:
         execution_response
     )
 
-# javac source.java
-# java ClassName > 
 
-# g++ source.c/souce.cpp
-# ./source > out
+
+def execute_java(java_file, input_file_location) -> Execution:
+    # Generate java compile command
+    # javac {filename}
+    # If error return Execution with error then only
+    # If successful, generate command for java run
+    # java ClassName
+    # If error return Execution with error then only
+    # Else return True, with response from execution
+
+    execution_command = f"javac ./code/{java_file}".split(' ')
+    execution_status = True
+    try:
+        execution_response = subprocess.check_output(execution_command, stderr=subprocess.PIPE).decode('utf-8')
+    except subprocess.CalledProcessError as e:
+        return Execution(
+            False, e.stderr.decode('utf-8')
+        )
+
+    execution_command = f"java -cp ./code Solution".split(' ')
+    execution_status = True
+    try:
+        execution_response = subprocess.check_output(execution_command, stdin=open(f"./code/{input_file_location}", 'r'), stderr=subprocess.PIPE).decode('utf-8')
+    except subprocess.CalledProcessError as e:
+        return Execution(
+            False, e.stderr.decode('utf-8')
+        )
+    return Execution(
+        execution_status,
+        execution_response
+    )
+
+def execute_cpp(cpp_file, input_file_location) -> Execution:
+    # Generate java compile command
+    # javac {filename}
+    # If error return Execution with error then only
+    # If successful, generate command for java run
+    # java ClassName
+    # If error return Execution with error then only
+    # Else return True, with response from execution
+
+    execution_command = f"g++ -o ./code/a.out ./code/{cpp_file}".split(' ')
+    execution_status = True
+    try:
+        execution_response = subprocess.check_output(execution_command, stderr=subprocess.PIPE).decode('utf-8')
+    except subprocess.CalledProcessError as e:
+        return Execution(
+            False, e.stderr.decode('utf-8')
+        )
+
+    execution_command = f"./code/a.out".split(' ')
+    execution_status = True
+    try:
+        execution_response = subprocess.check_output(execution_command, stdin=open(f"./code/{input_file_location}", 'r'), stderr=subprocess.PIPE).decode('utf-8')
+    except subprocess.CalledProcessError as e:
+        return Execution(
+            False, e.stderr.decode('utf-8')
+        )
+    return Execution(
+        execution_status,
+        execution_response
+    )
+
