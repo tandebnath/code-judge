@@ -3,19 +3,15 @@
 
     <title>CODE JUDGE</title>
     <style>
-    .loggingOut{
-        float:right;
-        position:relative;
-    }
     </style>
 
 </head>
 <body>
-
-{% if student.logged_in %}
+{% include "base.html" %}
+{% if display_buttons %}
 
 Logged in : {{ student.student_name }}
-<a href="/student/logout" class="loggingOut">Logout</a>
+{% comment %} <a href="/student/logout" class="loggingOut">Logout</a> {% endcomment %}
 
 {% else %}
 
@@ -28,15 +24,17 @@ Logged out (<a href="/student">Login</a>)
 <table style="width: 100%;">
     <tr>
         <td style="width: 50%;">Title</td>
+        <td style="width: 25%;">Description</td>
         <td style="width: 50%;">Actions</td>
     </tr>
     {% for problem in problems %}
         <tr>
-            <td>{{ problem.title }}</td>
-            <td>
-                <a href="/student/problems/{{ problem.id }}" class="Viewing" >View</a>
-                <button class="Solving">Solve</button>
-            </td>
+            <td><b>{{ problem.id }}.</b>{{ problem.title }}</td>
+            <td>{{ problem.description }}</td>
+            <td>{% if display_buttons %}
+                <button onclick="location.href='/student/problems/{{ problem.id }}'" type="submit" class="Viewing" >View</button>
+                <button onclick="location.href='/student/problems/{{ problem.id }}'" type="submit" class="Solving">Solve</button>
+            {% endif %}<hr></td>
         </tr>
     {% endfor %}
 </table>
