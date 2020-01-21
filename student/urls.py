@@ -27,5 +27,6 @@ urlpatterns = [
     path('register', student_register),
     path('check_login', check_login),
     path('on_register', on_register),
-    path('logout', logout)
+    path('logout', logout),
+    path('compete',problem_list)
 ]

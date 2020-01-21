@@ -2,6 +2,7 @@ import enum
 from collections import namedtuple
 from .utils import execute_python, execute_java, execute_cpp
 
+
 class LanguageChoice(enum.Enum):
     JAVA = {
         'verbose': 'Java',
@@ -23,4 +24,17 @@ class LanguageChoice(enum.Enum):
     }
 
 
+class ExecutionStatusType(enum.Enum):
 
+    COMPILE_ERROR = {
+        'verbose': 'Compilation Error',
+        'key': 'compile_error'
+    }
+    EXECUTION_ERROR = {
+        'verbose': 'Execution Error',
+        'key': 'execution_error'
+    }
+    INCORRECT_ANSWER = {
+        'verbose': 'Incorrect Answer',
+        'key': 'incorrect_answer'
+    }

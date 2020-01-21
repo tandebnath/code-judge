@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Code Judge</title>
+<style>
+#searchbar{
+    width:350px;
+}
+#logout{
+    padding-left:8px;
+}
+.navbar-custom { 
+            background-color: lightgreen;
+} 
+body {
+  padding-top: 0rem;
+  padding-left:0rem;
+  padding-right:0rem;
+}
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-custom " >
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/student">Code Judge</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/student/problems">Problems</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/student/compete">Compete</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mx-auto order-0">
+        <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="searchbar">
+    </div>
+    
+    {% if display_buttons %}
+    <div class="navbar-collapse collapse ">
+        <ul class="navbar-nav ml-auto position-relative">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Account</a>
+                <a class="dropdown-item" href="#">Settings</a>
+            </div>
+            <li class="nav-item" id="logout">
+                <button onclick="location.href='/student/logout'" type="submit" class="btn btn-danger">Logout</button>
+            </li>
+            
+        </ul>
+    </div>
+    {% endif %}
+</nav>
+</body>
+</html>

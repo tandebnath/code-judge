@@ -2,19 +2,22 @@
 <head>
 
     <title>CODE JUDGE</title>
-
+    <style>
+    </style>
 </head>
 <body>
 
-Logged in : {{ name }}
+{% include "base.html" %}
+Logged in : {{ student_details.student_name }}
+<hr>
 
 <h2>Runs:-</h2>
 
 <table style="width: 100%;">
     <tr>
-        <td style="width: 50%;">Title</td>
-        <td style="width: 50%;">Actions</td>
-        <td style="width: 50%;">Status</td>
+        <td style="width: 50%;"><u>Problem</td>
+        <td style="width: 50%;"><u>Language</td>
+        <td style="width: 50%;"><u>Status</td>
 
     </tr>
     {% for run in runs %}

@@ -10,11 +10,11 @@
     </style>
 </head>
 <body>
+{% include "base.html" %}
 
-{% if student.logged_in %}
+{% if display_buttons %}
 
-Logged in : {{ student.student_name }}
-<a href="/student/logout" class="loggingOut">Logout</a>
+Logged in : {{ student_details.student_name }}
 
 {% endif %}
 

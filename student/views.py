@@ -2,12 +2,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .models import Problem, Run, Student
-from .choices import LanguageChoice
+from .choices import LanguageChoice, ExecutionStatusType
 import time
 from .utils import write_content, Execution
 from .decorators import is_login
-
-# Test
+from .context_processors import student_details
 
 
 def student_login(request):
@@ -48,7 +47,6 @@ def check_login(request):
 
 # Create your views here.
 
-@is_login
 def problem_list(request):
     problems = Problem.objects.all()
     student = None
@@ -86,6 +84,8 @@ def problem_solve(request, problem_id):
             [__language for __language in LanguageChoice]
         )
     )[0].value
+
+    
     extension = _language['extension']
     execute = _language['execution']
     current_timestamp = int(time.time())
@@ -102,10 +102,18 @@ def problem_solve(request, problem_id):
     if not execution.status:
         return JsonResponse(execution._asdict())
 
+    student_id = student_details(request)['student_details']['student_id']
+
+    try:
+        student = Student.objects.get(id=student_id)
+    except ObjectDoesNotExist:
+        student = None
+
     # Create new run
     run = Run(
         language=_language['key'],
         problem=problem,
+        student=student,
         code=open(f"./code/{code_location}", 'r').read(),
         status=problem.output.splitlines() == execution.response.splitlines()
     )
@@ -117,7 +125,12 @@ def problem_solve(request, problem_id):
 
 @is_login
 def run_list(request):
-    runs = Run.objects.all()
+    student_id = student_details(request)['student_details']['student_id']
+    try:
+        student = Student.objects.get(id=student_id)
+    except ObjectDoesNotExist:
+        student = None
+    runs = Run.objects.filter(student=student)
     return render(request, 'run_list.html', {'runs': runs})
 
 
